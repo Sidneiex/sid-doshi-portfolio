@@ -1,0 +1,236 @@
+@import "tailwindcss";
+
+/* ─── Design Tokens ─────────────────────────────────────────── */
+@theme {
+  /* Dark palette (default) */
+  --color-background: #050505;
+  --color-background-alt: #0a0a0a;
+  --color-surface: #111111;
+  --color-surface-2: #1a1a1a;
+  --color-foreground: #f0f0f0;
+  --color-muted: #777777;
+
+  /* Accent: orange-red system */
+  --color-accent-400: #ff6a3d;
+  --color-accent-500: #ff4433;
+  --color-accent-600: #e63b2e;
+
+  /* Fonts */
+  --font-sans: var(--font-outfit), ui-sans-serif, system-ui;
+  --font-serif: var(--font-playfair), ui-serif, Georgia;
+  --font-display: var(--font-bebas), "Bebas Neue", Impact, ui-sans-serif;
+
+  /* Shadows */
+  --shadow-accent: 0 0 40px rgba(255, 68, 51, 0.25), 0 0 80px rgba(255, 68, 51, 0.1);
+  --shadow-accent-sm: 0 0 20px rgba(255, 68, 51, 0.2);
+}
+
+/* ─── Base ──────────────────────────────────────────────────── */
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    color-scheme: dark;
+  }
+
+  * {
+    box-sizing: border-box;
+  }
+
+  body {
+    background-color: var(--color-background);
+    background-image: radial-gradient(circle at top, var(--color-background-alt) 0%, var(--color-background) 100%);
+    background-attachment: fixed;
+    color: var(--color-foreground);
+    @apply font-sans;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    transition: background-color 0.5s ease, color 0.5s ease;
+  }
+
+  /* ── Light/Dark mode root variables ──────────────────────── */
+  :root.light,
+  .light {
+    --color-background: #eeeeee;
+    --color-background-alt: #ffffff;
+    --color-surface: #ffffff;
+    --color-surface-2: #fafafa;
+    --color-foreground: #0a0a0a;
+    --color-muted: #555555;
+    color-scheme: light;
+  }
+
+  ::selection {
+    background: rgba(255, 68, 51, 0.25);
+    color: var(--color-foreground);
+  }
+}
+
+/* ─── Accent gradient utilities ─────────────────────────────── */
+@utility accent-gradient {
+  background: linear-gradient(135deg, var(--color-accent-400) 0%, var(--color-accent-600) 100%);
+}
+
+@utility text-accent-gradient {
+  background: linear-gradient(135deg, var(--color-accent-400) 0%, var(--color-accent-500) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ─── 3D Tilt Card ────────────────────────────────────────── */
+@utility tilt-card {
+  transform-style: preserve-3d;
+  transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1), box-shadow 0.4s ease;
+  will-change: transform;
+}
+.tilt-card:hover {
+  box-shadow: var(--shadow-accent);
+}
+
+/* ─── Cinematic Scroll Reveal ─────────────────────────────── */
+/* Cards start below, smaller, blurred, and tilted — then resolve */
+@keyframes cinematicReveal {
+  from {
+    opacity: 0;
+    transform: translateY(60px) scale(0.92) perspective(800px) rotateX(8deg);
+    filter: blur(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1) perspective(800px) rotateX(0deg);
+    filter: blur(0px);
+  }
+}
+
+@utility cinematic-reveal {
+  animation: cinematicReveal 1s cubic-bezier(0.23, 1, 0.32, 1) both;
+}
+
+/* Simple fade-up */
+@keyframes fadeUpBlur {
+  from {
+    opacity: 0;
+    transform: translateY(40px);
+    filter: blur(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0px);
+  }
+}
+
+@utility fade-up {
+  animation: fadeUpBlur 0.8s cubic-bezier(0.23, 1, 0.32, 1) both;
+}
+
+/* ─── Animated Grain ──────────────────────────────────────── */
+@keyframes grain {
+  0%, 100% { transform: translate(0, 0); }
+  10%  { transform: translate(-3%, -4%); }
+  20%  { transform: translate(-6%, 3%); }
+  30%  { transform: translate(3%, -2%); }
+  40%  { transform: translate(-2%, 6%); }
+  50%  { transform: translate(-7%, 2%); }
+  60%  { transform: translate(4%, -3%); }
+  70%  { transform: translate(-3%, 5%); }
+  80%  { transform: translate(5%, 1%); }
+  90%  { transform: translate(-4%, -2%); }
+}
+
+.grain-overlay::before {
+  content: '';
+  position: fixed;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 200px 200px;
+  opacity: 0.03;
+  pointer-events: none;
+  z-index: 9999;
+  animation: grain 8s steps(10) infinite;
+}
+
+/* ─── Slow ambient gradient ───────────────────────────────── */
+@keyframes ambientGlow {
+  0%, 100% { background-position: 0% 50%; }
+  50%      { background-position: 100% 50%; }
+}
+
+.ambient-bg {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background: radial-gradient(
+    ellipse at 30% 20%,
+    rgba(255, 68, 51, 0.08) 0%,
+    transparent 60%
+  ),
+  radial-gradient(
+    ellipse at 70% 80%,
+    rgba(255, 106, 61, 0.05) 0%,
+    transparent 60%
+  );
+  background-size: 200% 200%;
+  animation: ambientGlow 20s ease-in-out infinite;
+}
+
+/* ─── Accent Glow Pulse (submit, CTA) ─────────────────────── */
+@keyframes accentPulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(255, 68, 51, 0.3); }
+  50%      { box-shadow: 0 0 30px 8px rgba(255, 68, 51, 0.18); }
+}
+
+.btn-accent-pulse:hover {
+  animation: accentPulse 1.5s ease-in-out infinite;
+}
+
+/* ─── Ghost / Outline text ────────────────────────────────── */
+@utility text-ghost {
+  -webkit-text-stroke: 1px rgba(255, 255, 255, 0.12);
+  color: transparent;
+}
+
+/* ─── Accent underline input focus ────────────────────────── */
+@utility input-accent {
+  background: transparent;
+  border: none;
+  border-bottom: 1px solid rgba(255,255,255,0.12);
+  outline: none;
+  color: var(--color-foreground);
+  transition: border-color 0.3s ease;
+  padding-bottom: 8px;
+  width: 100%;
+}
+.input-accent:focus {
+  border-bottom-color: var(--color-accent-500);
+}
+
+/* ─── Section divider ─────────────────────────────────────── */
+@utility accent-rule {
+  border: none;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--color-accent-500), transparent);
+}
+
+/* ─── Page transition wrapper ─────────────────────────────── */
+.page-transition-enter {
+  opacity: 0;
+  transform: translateY(12px);
+}
+.page-transition-enter-active {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.4s ease, transform 0.4s ease;
+}
+.page-transition-exit {
+  opacity: 1;
+}
+.page-transition-exit-active {
+  opacity: 0;
+  transition: opacity 0.25s ease;
+}
