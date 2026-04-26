@@ -102,9 +102,8 @@ function StoryAct({
   const isEven = index % 2 === 0;
   return (
     <section className="relative py-32 px-4 sm:px-6 lg:px-8 overflow-hidden">
-      {/* Ghost act label */}
       <div
-        className={`absolute top-1/2 -translate-y-1/2 pointer-events-none select-none font-display text-[12vw] leading-none text-ghost opacity-60 ${
+        className={`absolute top-1/2 -translate-y-1/2 pointer-events-none select-none font-serif text-[12vw] leading-none text-ghost opacity-60 font-bold ${
           isEven ? "-left-8" : "-right-8"
         }`}
         aria-hidden="true"
@@ -121,19 +120,19 @@ function StoryAct({
           >
             <div className="flex items-center gap-4">
               <div className="w-12 h-px bg-accent-500" />
-              <span className="text-accent-500 text-xs font-semibold tracking-[0.3em] uppercase">
+              <span className="text-accent-500 text-xs font-semibold tracking-[0.3em] uppercase font-mono">
                 {act}
               </span>
             </div>
             <h2
-              className={`text-5xl sm:text-6xl md:text-7xl font-display tracking-widest uppercase text-foreground leading-none ${
+              className={`text-5xl sm:text-6xl md:text-7xl font-serif tracking-wide text-foreground leading-none font-bold ${
                 isEven ? "text-left" : "text-right"
               }`}
             >
               {heading}
             </h2>
             <p
-              className={`text-lg text-muted leading-[1.9] max-w-2xl font-serif ${
+              className={`text-lg text-muted leading-[1.9] max-w-2xl ${
                 isEven ? "text-left" : "text-right"
               }`}
             >
@@ -148,14 +147,14 @@ function StoryAct({
 
 /* ─── Skills ────────────────────────────────────────────────── */
 const skills = [
-  { label: "Adobe Premiere Pro", icon: "🎬" },
-  { label: "After Effects", icon: "✨" },
-  { label: "DaVinci Resolve", icon: "🎨" },
-  { label: "Figma", icon: "🖌️" },
-  { label: "React / Next.js", icon: "⚛️" },
-  { label: "Python", icon: "🐍" },
-  { label: "TypeScript", icon: "⚡" },
-  { label: "C++", icon: "⚙️" },
+  { label: "Adobe Premiere Pro", iconUrl: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/premierepro/premierepro-original.svg" },
+  { label: "After Effects", iconUrl: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/aftereffects/aftereffects-original.svg" },
+  { label: "DaVinci Resolve", iconUrl: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/resolve/resolve-original.svg" },
+  { label: "Figma", iconUrl: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/figma/figma-original.svg" },
+  { label: "React / Next.js", iconUrl: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/react/react-original.svg" },
+  { label: "Python", iconUrl: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/python/python-original.svg" },
+  { label: "TypeScript", iconUrl: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/typescript/typescript-original.svg" },
+  { label: "C++", iconUrl: "https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/cplusplus/cplusplus-original.svg" },
 ];
 
 /* ─── Stats ─────────────────────────────────────────────────── */
@@ -194,8 +193,7 @@ export default function AboutPage() {
     <>
       {/* ── HERO ──────────────────────────────────────────────── */}
       <section className="relative min-h-screen flex flex-col items-center justify-center px-4 -mt-20 overflow-hidden bg-background">
-        {/* Radial glow */}
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(255,68,51,0.05)_0%,transparent_70%)] pointer-events-none" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(212,165,116,0.03)_0%,transparent_70%)] pointer-events-none" />
 
         <div className="relative z-10 text-center max-w-4xl">
           <motion.p
@@ -206,7 +204,7 @@ export default function AboutPage() {
               delay: 0.3,
               ease: [0.23, 1, 0.32, 1],
             }}
-            className="font-serif italic text-3xl sm:text-4xl md:text-5xl text-foreground leading-[1.4] mb-8"
+            className="font-serif text-3xl sm:text-4xl md:text-5xl text-foreground leading-[1.4] mb-8 font-semibold"
           >
             &ldquo;Some people choose between code and camera.
             <br />
@@ -229,7 +227,7 @@ export default function AboutPage() {
             <p className="font-display text-xl tracking-[0.3em] uppercase text-foreground mb-1">
               Siddharth Doshi
             </p>
-            <p className="font-serif italic text-sm text-accent-500 tracking-widest">
+            <p className="font-mono text-sm text-accent-500 tracking-widest">
               Filmmaker · Developer · Creator
             </p>
           </motion.div>
@@ -243,7 +241,7 @@ export default function AboutPage() {
             <Link
               href="/videos"
               id="about-see-work-btn"
-              className="border border-accent-500/50 px-8 py-4 rounded text-accent-500 font-bold uppercase tracking-[0.15em] text-sm inline-flex items-center gap-2 hover:bg-accent-500 hover:text-background hover:shadow-[0_0_40px_rgba(255,68,51,0.35)] transition-all duration-300 group"
+              className="border border-accent-500/40 px-8 py-4 rounded text-accent-500 font-bold uppercase tracking-[0.15em] text-sm inline-flex items-center gap-2 hover:bg-accent-500 hover:text-background hover:shadow-[0_0_30px_rgba(212,165,116,0.2)] transition-all duration-300 group"
             >
               See My Work
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
@@ -251,14 +249,13 @@ export default function AboutPage() {
           </motion.div>
         </div>
 
-        {/* Scroll hint */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ delay: 2.5 }}
           className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 text-muted/40"
         >
-          <span className="text-xs tracking-widest uppercase">
+          <span className="text-xs tracking-widest uppercase font-mono">
             Scroll to read
           </span>
           <ChevronDown className="w-4 h-4 animate-bounce" />
@@ -269,9 +266,9 @@ export default function AboutPage() {
       <section className="py-32 px-4 sm:px-6 lg:px-8 overflow-hidden">
         <div className="container mx-auto max-w-5xl">
           <ParallaxText>
-            <h2 className="font-display text-6xl sm:text-7xl md:text-[8rem] leading-[0.9] tracking-widest uppercase text-foreground">
+            <h2 className="font-serif text-6xl sm:text-7xl md:text-[8rem] leading-[0.9] tracking-wide text-foreground font-bold">
               Film
-              <span className="text-accent-gradient font-serif italic normal-case tracking-normal text-5xl sm:text-6xl md:text-8xl block mt-2">
+              <span className="text-accent-gradient font-serif normal-case tracking-normal text-5xl sm:text-6xl md:text-8xl block mt-2 font-semibold">
                 meets
               </span>
               Code
@@ -279,7 +276,7 @@ export default function AboutPage() {
           </ParallaxText>
 
           <ParallaxText className="mt-16">
-            <p className="text-xl md:text-2xl text-muted leading-[1.8] max-w-3xl font-serif">
+            <p className="text-xl md:text-2xl text-muted leading-[1.8] max-w-3xl">
               I sit at the intersection of two worlds that rarely overlap.
               Cinematic visual storytelling on one hand — robust software
               engineering on the other. This portfolio is the proof that they
@@ -301,7 +298,7 @@ export default function AboutPage() {
       <section className="py-24 px-4 bg-surface border-y border-foreground/5 overflow-hidden">
         <Reveal>
           <div className="container mx-auto max-w-6xl">
-            <p className="text-center text-xs text-muted/60 tracking-[0.3em] uppercase mb-16">
+            <p className="text-center text-xs text-muted/60 tracking-[0.3em] uppercase mb-16 font-mono">
               — By the numbers —
             </p>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-12 md:gap-4">
@@ -314,14 +311,14 @@ export default function AboutPage() {
                   transition={{ delay: i * 0.1, duration: 0.6 }}
                   className="flex flex-col items-center gap-3 text-center"
                 >
-                  <span className="font-display text-5xl md:text-6xl text-accent-gradient tracking-widest">
+                  <span className="font-serif text-5xl md:text-6xl text-accent-gradient tracking-wide font-bold">
                     <AnimatedCounter
                       end={stat.value}
                       suffix={stat.suffix}
                       duration={2200}
                     />
                   </span>
-                  <span className="text-xs text-muted tracking-[0.2em] uppercase font-semibold">
+                  <span className="text-xs text-muted tracking-[0.2em] uppercase font-semibold font-mono">
                     {stat.label}
                   </span>
                 </motion.div>
@@ -336,10 +333,10 @@ export default function AboutPage() {
         <div className="container mx-auto max-w-5xl">
           <Reveal>
             <div className="text-center mb-16">
-              <p className="text-xs text-muted/60 tracking-[0.3em] uppercase mb-4">
+              <p className="text-xs text-muted/60 tracking-[0.3em] uppercase mb-4 font-mono">
                 — Toolkit —
               </p>
-              <h2 className="font-display text-5xl tracking-widest uppercase text-foreground">
+              <h2 className="font-serif text-5xl tracking-wide text-foreground font-bold">
                 Skills
               </h2>
             </div>
@@ -355,13 +352,31 @@ export default function AboutPage() {
                 transition={{ delay: i * 0.07, duration: 0.4 }}
                 whileHover={{
                   y: -4,
-                  boxShadow: "0 0 30px rgba(255,68,51,0.15)",
-                  borderColor: "rgba(255,68,51,0.3)",
+                  boxShadow: "0 0 24px rgba(212,165,116,0.1)",
+                  borderColor: "rgba(212,165,116,0.2)",
                 }}
-                className="flex flex-col items-center gap-3 p-6 rounded-xl border border-foreground/5 bg-surface transition-colors duration-300 group cursor-default"
+                className="flex flex-col items-center gap-4 p-6 rounded-xl border border-foreground/5 bg-surface transition-colors duration-300 group cursor-default"
               >
-                <span className="text-3xl">{skill.icon}</span>
-                <span className="text-xs text-muted group-hover:text-accent-500 text-center tracking-wide transition-colors duration-300">
+                <div className="w-10 h-10 relative flex items-center justify-center grayscale group-hover:grayscale-0 transition-all duration-300">
+                  {/* eslint-disable-next-line @next/next/no-img-element */}
+                  <img
+                    src={skill.iconUrl}
+                    alt={skill.label}
+                    className="w-full h-full object-contain"
+                    onError={(e) => {
+                      const target = e.target as HTMLImageElement;
+                      target.style.display = "none";
+                      const parent = target.parentElement;
+                      if (parent) {
+                        const fallback = document.createElement("span");
+                        fallback.className = "text-lg font-mono text-muted";
+                        fallback.textContent = skill.label.slice(0, 2);
+                        parent.appendChild(fallback);
+                      }
+                    }}
+                  />
+                </div>
+                <span className="text-xs text-muted group-hover:text-accent-500 text-center tracking-wide transition-colors duration-300 font-mono">
                   {skill.label}
                 </span>
               </motion.div>
@@ -372,14 +387,14 @@ export default function AboutPage() {
 
       {/* ── FINAL CTA ─────────────────────────────────────────── */}
       <section className="relative py-36 px-4 bg-background-alt border-t border-foreground/5 overflow-hidden">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(255,68,51,0.05)_0%,transparent_65%)] pointer-events-none" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,rgba(212,165,116,0.03)_0%,transparent_65%)] pointer-events-none" />
 
         <div className="container mx-auto max-w-4xl text-center relative z-10">
           <Reveal>
-            <p className="text-xs text-accent-500 tracking-[0.3em] uppercase mb-6">
+            <p className="text-xs text-accent-500 tracking-[0.3em] uppercase mb-6 font-mono">
               — Ready? —
             </p>
-            <h2 className="font-serif italic text-4xl sm:text-5xl md:text-6xl text-foreground leading-[1.2] mb-10">
+            <h2 className="font-serif text-4xl sm:text-5xl md:text-6xl text-foreground leading-[1.2] mb-10 font-bold">
               &ldquo;Got a vision?
               <br />
               <span className="text-accent-gradient">
@@ -389,7 +404,7 @@ export default function AboutPage() {
             <Link
               href="/contact"
               id="about-start-project-btn"
-              className="border border-accent-500/50 inline-flex items-center gap-2 px-10 py-5 rounded text-accent-500 font-bold uppercase tracking-[0.2em] text-sm hover:bg-accent-500 hover:text-background hover:shadow-[0_0_60px_rgba(255,68,51,0.4)] transition-all duration-500 group"
+              className="border border-accent-500/40 inline-flex items-center gap-2 px-10 py-5 rounded text-accent-500 font-bold uppercase tracking-[0.2em] text-sm hover:bg-accent-500 hover:text-background hover:shadow-[0_0_40px_rgba(212,165,116,0.2)] transition-all duration-500 group"
             >
               Start a Project
               <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />

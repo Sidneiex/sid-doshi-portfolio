@@ -56,7 +56,7 @@ function MagneticSubmit({
       id="contact-submit-btn"
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      className="w-full py-5 rounded font-bold uppercase tracking-[0.2em] text-sm border border-accent-500/50 text-accent-500 flex items-center justify-center gap-3 hover:bg-accent-500 hover:text-background hover:shadow-[0_0_40px_rgba(255,68,51,0.35)] transition-all duration-500 group transform-gpu disabled:opacity-50 disabled:cursor-not-allowed"
+      className="w-full py-5 rounded font-bold uppercase tracking-[0.2em] text-sm border border-accent-500/40 text-accent-500 flex items-center justify-center gap-3 hover:bg-accent-500 hover:text-background hover:shadow-[0_0_30px_rgba(212,165,116,0.2)] transition-all duration-500 group transform-gpu disabled:opacity-50 disabled:cursor-not-allowed"
     >
       {loading ? (
         <>
@@ -98,7 +98,7 @@ function AccentInput({
         htmlFor={id}
         className={`absolute left-0 transition-all duration-300 pointer-events-none font-medium ${
           focused || filled
-            ? "-top-5 text-[10px] tracking-[0.3em] uppercase text-accent-500"
+            ? "-top-5 text-[10px] tracking-[0.3em] uppercase text-accent-500 font-mono"
             : "top-2 text-sm text-muted"
         }`}
       >
@@ -116,7 +116,7 @@ function AccentInput({
           setFilled(e.target.value.length > 0);
         }}
         onChange={(e) => setFilled(e.target.value.length > 0)}
-        className="w-full bg-transparent border-b border-foreground/15 outline-none text-foreground pb-3 pt-2 text-sm placeholder:text-muted/30 transition-all duration-300 focus:border-accent-500"
+        className="w-full bg-transparent border-b border-foreground/10 outline-none text-foreground pb-3 pt-2 text-sm placeholder:text-muted/30 transition-all duration-300 focus:border-accent-500"
       />
       <span
         className={`absolute bottom-0 left-0 h-px bg-accent-500 transition-all duration-400 ${
@@ -148,7 +148,7 @@ function AccentTextarea({
         htmlFor={id}
         className={`absolute left-0 transition-all duration-300 pointer-events-none font-medium ${
           focused || filled
-            ? "-top-5 text-[10px] tracking-[0.3em] uppercase text-accent-500"
+            ? "-top-5 text-[10px] tracking-[0.3em] uppercase text-accent-500 font-mono"
             : "top-2 text-sm text-muted"
         }`}
       >
@@ -166,7 +166,7 @@ function AccentTextarea({
           setFilled(e.target.value.length > 0);
         }}
         onChange={(e) => setFilled(e.target.value.length > 0)}
-        className="w-full bg-transparent border-b border-foreground/15 outline-none text-foreground pb-3 pt-2 text-sm placeholder:text-muted/30 resize-none transition-all duration-300 focus:border-accent-500"
+        className="w-full bg-transparent border-b border-foreground/10 outline-none text-foreground pb-3 pt-2 text-sm placeholder:text-muted/30 resize-none transition-all duration-300 focus:border-accent-500"
       />
       <span
         className={`absolute bottom-0 left-0 h-px bg-accent-500 transition-all duration-400 ${
@@ -196,7 +196,7 @@ function InquirySelector({
 }) {
   return (
     <div>
-      <p className="text-[10px] tracking-[0.3em] uppercase text-accent-500 mb-3 font-medium">
+      <p className="text-[10px] tracking-[0.3em] uppercase text-accent-500 mb-3 font-medium font-mono">
         Type of Inquiry
       </p>
       <div className="flex flex-wrap gap-2">
@@ -207,15 +207,14 @@ function InquirySelector({
             onClick={() => onSelect(type)}
             className={`px-4 py-2 rounded-full text-xs font-semibold tracking-[0.1em] uppercase transition-all duration-300 ${
               selected === type
-                ? "border border-accent-500 text-accent-500 shadow-[0_0_20px_rgba(255,68,51,0.15)]"
-                : "border border-foreground/10 text-muted hover:text-foreground hover:border-foreground/30"
+                ? "border border-accent-500 text-accent-500 shadow-[0_0_16px_rgba(212,165,116,0.1)]"
+                : "border border-foreground/10 text-muted hover:text-foreground hover:border-foreground/20"
             }`}
           >
             {type}
           </button>
         ))}
       </div>
-      {/* Hidden input for form submission */}
       <input type="hidden" name="inquiry_type" value={selected} />
     </div>
   );
@@ -235,7 +234,6 @@ export default function ContactPage() {
     setError("");
 
     const formData = new FormData(formRef.current!);
-    // Add Web3Forms access key
     formData.append("access_key", "487e1d7e-e6b4-44ea-ace4-2b4d43334a4d");
     formData.append("subject", `New inquiry from ${formData.get("name")} — ${inquiryType || "General"}`);
     formData.append("from_name", "Sid Doshi Portfolio");
@@ -265,13 +263,13 @@ export default function ContactPage() {
     <>
       {/* Header */}
       <section className="pt-16 pb-12 px-4 sm:px-6 lg:px-8 text-center relative overflow-hidden">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(255,68,51,0.05)_0%,transparent_60%)] pointer-events-none" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(212,165,116,0.03)_0%,transparent_60%)] pointer-events-none" />
 
         <div className="relative z-10 container mx-auto max-w-4xl">
           <motion.p
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
-            className="text-xs text-accent-500 tracking-[0.3em] uppercase mb-4"
+            className="text-xs text-accent-500 tracking-[0.3em] uppercase mb-4 font-mono"
           >
             — Get in Touch —
           </motion.p>
@@ -279,7 +277,7 @@ export default function ContactPage() {
             initial={{ opacity: 0, y: 20, filter: "blur(6px)" }}
             animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
             transition={{ duration: 0.8 }}
-            className="font-display text-6xl sm:text-7xl md:text-8xl tracking-widest uppercase text-foreground mb-4"
+            className="font-serif text-6xl sm:text-7xl md:text-8xl tracking-wide text-foreground mb-4 font-bold"
           >
             Contact
           </motion.h1>
@@ -306,9 +304,9 @@ export default function ContactPage() {
                 initial={{ opacity: 0, x: -30 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0.3, duration: 0.6 }}
-                className="p-8 rounded-2xl bg-surface border border-foreground/5 hover:border-accent-500/20 transition-all duration-300 group hover:shadow-[0_0_30px_rgba(255,68,51,0.08)]"
+                className="p-8 rounded-2xl bg-surface border border-foreground/5 hover:border-accent-500/15 transition-all duration-300 group hover:shadow-[0_0_24px_rgba(212,165,116,0.05)]"
               >
-                <div className="w-12 h-12 rounded-xl border border-accent-500/40 flex items-center justify-center mb-6 group-hover:shadow-[0_0_20px_rgba(255,68,51,0.3)] transition-all duration-300">
+                <div className="w-12 h-12 rounded-xl border border-accent-500/30 flex items-center justify-center mb-6 group-hover:shadow-[0_0_16px_rgba(212,165,116,0.15)] transition-all duration-300">
                   <Mail className="w-5 h-5 text-accent-500" />
                 </div>
                 <h2 className="font-display text-xl tracking-widest uppercase text-foreground mb-2">
@@ -330,9 +328,9 @@ export default function ContactPage() {
                 initial={{ opacity: 0, x: -30 }}
                 animate={{ opacity: 1, x: 0 }}
                 transition={{ delay: 0.45, duration: 0.6 }}
-                className="p-8 rounded-2xl bg-surface border border-foreground/5 hover:border-accent-500/20 transition-all duration-300 group hover:shadow-[0_0_30px_rgba(255,68,51,0.08)]"
+                className="p-8 rounded-2xl bg-surface border border-foreground/5 hover:border-accent-500/15 transition-all duration-300 group hover:shadow-[0_0_24px_rgba(212,165,116,0.05)]"
               >
-                <div className="w-12 h-12 rounded-xl border border-accent-500/40 flex items-center justify-center mb-6 group-hover:shadow-[0_0_20px_rgba(255,68,51,0.3)] transition-all duration-300">
+                <div className="w-12 h-12 rounded-xl border border-accent-500/30 flex items-center justify-center mb-6 group-hover:shadow-[0_0_16px_rgba(212,165,116,0.15)] transition-all duration-300">
                   <Calendar className="w-5 h-5 text-accent-500" />
                 </div>
                 <h2 className="font-display text-xl tracking-widest uppercase text-foreground mb-2">
@@ -378,7 +376,6 @@ export default function ContactPage() {
                   className="space-y-10"
                   noValidate
                 >
-                  {/* Honeypot for spam */}
                   <input
                     type="checkbox"
                     name="botcheck"
@@ -467,7 +464,7 @@ export default function ContactPage() {
                       setSubmitted(false);
                       setInquiryType("");
                     }}
-                    className="text-xs text-muted/50 hover:text-accent-500 transition-colors tracking-widest uppercase mt-4"
+                    className="text-xs text-muted/50 hover:text-accent-500 transition-colors tracking-widest uppercase mt-4 font-mono"
                   >
                     Send another message
                   </button>

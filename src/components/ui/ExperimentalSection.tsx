@@ -52,7 +52,6 @@ function ParticleField() {
       ctx.clearRect(0, 0, w, h);
 
       for (const p of particles) {
-        // Mouse repulsion
         const dx = p.x - mouseRef.current.x;
         const dy = p.y - mouseRef.current.y;
         const dist = Math.sqrt(dx * dx + dy * dy);
@@ -74,11 +73,10 @@ function ParticleField() {
 
         ctx.beginPath();
         ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(255, 68, 51, ${0.3 + p.size * 0.15})`;
+        ctx.fillStyle = `rgba(212, 165, 116, ${0.25 + p.size * 0.1})`;
         ctx.fill();
       }
 
-      // Draw connections
       for (let i = 0; i < particles.length; i++) {
         for (let j = i + 1; j < particles.length; j++) {
           const dx = particles[i].x - particles[j].x;
@@ -88,7 +86,7 @@ function ParticleField() {
             ctx.beginPath();
             ctx.moveTo(particles[i].x, particles[i].y);
             ctx.lineTo(particles[j].x, particles[j].y);
-            ctx.strokeStyle = `rgba(255, 68, 51, ${0.08 * (1 - dist / 100)})`;
+            ctx.strokeStyle = `rgba(212, 165, 116, ${0.06 * (1 - dist / 100)})`;
             ctx.lineWidth = 0.5;
             ctx.stroke();
           }
@@ -145,7 +143,7 @@ function TypeWriter({ text, delay = 0 }: { text: string; delay?: number }) {
   }, [inView, text, delay]);
 
   return (
-    <span ref={ref} className="font-mono text-sm text-accent-500/80">
+    <span ref={ref} className="font-mono text-sm text-accent-500/70">
       {displayed}
       <span className="animate-pulse text-accent-500">|</span>
     </span>
@@ -167,10 +165,8 @@ const techSkills = [
 function SkillOrbit() {
   return (
     <div className="relative w-64 h-64 mx-auto">
-      {/* Center dot */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-3 h-3 rounded-full bg-accent-500 shadow-[0_0_20px_rgba(255,68,51,0.5)]" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-3 h-3 rounded-full bg-accent-500 shadow-[0_0_16px_rgba(212,165,116,0.4)]" />
 
-      {/* Orbit ring */}
       <div className="absolute inset-4 rounded-full border border-accent-500/10" />
       <div className="absolute inset-12 rounded-full border border-accent-500/5" />
 
@@ -198,7 +194,7 @@ function SkillOrbit() {
               ease: "easeInOut",
             }}
           >
-            <span className="text-[10px] tracking-widest uppercase text-muted hover:text-accent-500 transition-colors cursor-default whitespace-nowrap">
+            <span className="text-[10px] tracking-widest uppercase text-muted hover:text-accent-500 transition-colors cursor-default whitespace-nowrap font-mono">
               {skill}
             </span>
           </motion.div>
@@ -221,10 +217,10 @@ export function ExperimentalSection() {
           transition={{ duration: 0.8 }}
           className="text-center mb-20"
         >
-          <p className="text-xs text-accent-500 tracking-[0.3em] uppercase mb-4">
+          <p className="text-xs text-accent-500 tracking-[0.3em] uppercase mb-4 font-mono">
             — The Other Side —
           </p>
-          <h2 className="font-display text-5xl md:text-6xl tracking-widest uppercase text-foreground mb-4">
+          <h2 className="font-serif text-5xl md:text-6xl tracking-wide text-foreground mb-4 font-bold">
             Experimental
           </h2>
           <p className="text-muted max-w-lg mx-auto leading-relaxed">
@@ -240,11 +236,11 @@ export function ExperimentalSection() {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.8, delay: 0.1 }}
-            className="relative aspect-square rounded-2xl overflow-hidden border border-foreground/5 bg-background-alt group hover:border-accent-500/20 transition-all duration-500"
+            className="relative aspect-square rounded-2xl overflow-hidden border border-foreground/5 bg-background-alt group hover:border-accent-500/15 transition-all duration-500"
           >
             <ParticleField />
             <div className="absolute bottom-6 left-6 z-10">
-              <p className="text-xs text-muted tracking-widest uppercase mb-1">
+              <p className="text-xs text-muted tracking-widest uppercase mb-1 font-mono">
                 Interactive
               </p>
               <p className="text-sm text-foreground font-medium">
@@ -252,7 +248,7 @@ export function ExperimentalSection() {
               </p>
             </div>
             <div className="absolute top-6 right-6 z-10">
-              <span className="text-[10px] tracking-widest uppercase text-accent-500/60 border border-accent-500/20 px-2 py-1 rounded-full">
+              <span className="text-[10px] tracking-widest uppercase text-accent-500/50 border border-accent-500/15 px-2 py-1 rounded-full font-mono">
                 Canvas API
               </span>
             </div>
@@ -266,30 +262,30 @@ export function ExperimentalSection() {
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8, delay: 0.2 }}
-              className="rounded-2xl border border-foreground/5 bg-background-alt p-8 hover:border-accent-500/20 transition-all duration-500"
+              className="rounded-2xl border border-foreground/5 bg-background-alt p-8 hover:border-accent-500/15 transition-all duration-500"
             >
               <div className="flex items-center gap-2 mb-6">
-                <div className="w-3 h-3 rounded-full bg-accent-600/60" />
-                <div className="w-3 h-3 rounded-full bg-accent-500/40" />
-                <div className="w-3 h-3 rounded-full bg-accent-400/30" />
-                <span className="ml-auto text-[10px] text-muted tracking-widest uppercase">
+                <div className="w-3 h-3 rounded-full bg-accent-600/50" />
+                <div className="w-3 h-3 rounded-full bg-accent-500/30" />
+                <div className="w-3 h-3 rounded-full bg-accent-400/20" />
+                <span className="ml-auto text-[10px] text-muted tracking-widest uppercase font-mono">
                   terminal
                 </span>
               </div>
               <div className="space-y-2">
                 <div className="flex items-center gap-2">
-                  <span className="text-accent-500/50 text-xs font-mono">$</span>
+                  <span className="text-accent-500/40 text-xs font-mono">$</span>
                   <TypeWriter text="const sid = new Creator();" delay={300} />
                 </div>
                 <div className="flex items-center gap-2">
-                  <span className="text-accent-500/50 text-xs font-mono">$</span>
+                  <span className="text-accent-500/40 text-xs font-mono">$</span>
                   <TypeWriter
                     text='sid.blend("film", "code");'
                     delay={1800}
                   />
                 </div>
                 <div className="flex items-center gap-2">
-                  <span className="text-accent-500/50 text-xs font-mono">$</span>
+                  <span className="text-accent-500/40 text-xs font-mono">$</span>
                   <TypeWriter
                     text="// output: something new"
                     delay={3200}
@@ -304,9 +300,9 @@ export function ExperimentalSection() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.8, delay: 0.3 }}
-              className="rounded-2xl border border-foreground/5 bg-background-alt p-8 flex-1 flex flex-col items-center justify-center hover:border-accent-500/20 transition-all duration-500"
+              className="rounded-2xl border border-foreground/5 bg-background-alt p-8 flex-1 flex flex-col items-center justify-center hover:border-accent-500/15 transition-all duration-500"
             >
-              <p className="text-xs text-muted tracking-widest uppercase mb-6">
+              <p className="text-xs text-muted tracking-widest uppercase mb-6 font-mono">
                 Tech Stack
               </p>
               <SkillOrbit />

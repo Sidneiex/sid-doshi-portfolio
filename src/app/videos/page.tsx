@@ -1,95 +1,31 @@
 "use client";
 
 import { useState, useRef } from "react";
-import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
 import { Play, X } from "lucide-react";
 
-const videos = [
-  {
-    id: "01",
-    title: "BNP TV Ad",
-    client: "BNP Paribas",
-    thumbnail:
-      "https://images.unsplash.com/photo-1626814026160-2237a95fc5a0?w=800&q=80",
-    videoId: "LXb3EKWsInQ",
-    platform: "youtube",
-  },
-  {
-    id: "02",
-    title: "Sports Documentary",
-    client: "Personal Project",
-    thumbnail:
-      "https://images.unsplash.com/photo-1534438327276-14e5300c3a48?w=800&q=80",
-    videoId: "aqz-KE-bpKQ",
-    platform: "youtube",
-  },
-  {
-    id: "03",
-    title: "Skate Brand",
-    client: "Urban Skate Co.",
-    thumbnail:
-      "https://images.unsplash.com/photo-1520045892732-304bc3ac5d8e?w=800&q=80",
-    videoId: "ysz5S6PUM-U",
-    platform: "youtube",
-  },
-  {
-    id: "04",
-    title: "Lux Le Morne",
-    client: "Lux Hotels",
-    thumbnail:
-      "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=800&q=80",
-    videoId: "jNQXAC9IVRw",
-    platform: "youtube",
-  },
-  {
-    id: "05",
-    title: "Team Building",
-    client: "Infosys",
-    thumbnail:
-      "https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&q=80",
-    videoId: "ZqXmF1wuPKA",
-    platform: "youtube",
-  },
-  {
-    id: "06",
-    title: "Cinematic Teaser",
-    client: "Dr. Reddy's Labs",
-    thumbnail:
-      "https://images.unsplash.com/photo-1514525253161-7a46d19cd819?w=800&q=80",
-    videoId: "lE6RYpe9IT0",
-    platform: "youtube",
-  },
-  {
-    id: "07",
-    title: "Viral Brand Film",
-    client: "Confidential",
-    thumbnail:
-      "https://images.unsplash.com/photo-1588666579899-2e1bb18b6fc8?w=800&q=80",
-    videoId: "WbJgEgR2Oio",
-    platform: "youtube",
-  },
-  {
-    id: "08",
-    title: "Sports Highlight",
-    client: "Decathlon India",
-    thumbnail:
-      "https://images.unsplash.com/photo-1517836357463-d25dfeac3438?w=800&q=80",
-    videoId: "fJ9rUzIMcZQ",
-    platform: "youtube",
-  },
-  {
-    id: "09",
-    title: "Solar Rajasthan",
-    client: "Documentary",
-    thumbnail:
-      "https://images.unsplash.com/photo-1564996962459-a6fed2557982?w=800&q=80",
-    videoId: "Bey4XXJAqS8",
-    platform: "youtube",
-  },
+/* ═══════════════════════════════════════════════════════════════
+   DATA — Real videos
+   ═══════════════════════════════════════════════════════════════ */
+
+const horizontalVideos = [
+  { id: "TLN6IQtjKHU", index: 1 },
+  { id: "0VUyOxHMHcU", index: 2 },
+  { id: "fNcu_ocV9k0", index: 3 },
+  { id: "OGShLvHHa4E", index: 4 },
+  { id: "HIr7zGTdZpI", index: 5 },
 ];
 
-/* ─── Cinematic card variants ──────────────────────────────── */
+const shortVideos = [
+  { id: "zR0c_Rsj_tc", index: 1 },
+  { id: "aYpf0-Ahlj8", index: 2 },
+  { id: "A9QnraTMTPk", index: 3 },
+];
+
+/* ═══════════════════════════════════════════════════════════════
+   TILT CARD
+   ═══════════════════════════════════════════════════════════════ */
+
 const cardVariants = {
   hidden: {
     opacity: 0,
@@ -112,17 +48,19 @@ const cardVariants = {
   }),
 };
 
-/* ─── Tilt card ─────────────────────────────────────────────── */
 function TiltCard({
-  video,
+  videoId,
   index,
+  isVertical,
   onPlay,
 }: {
-  video: (typeof videos)[0];
+  videoId: string;
   index: number;
-  onPlay: (id: string) => void;
+  isVertical?: boolean;
+  onPlay: (id: string, vertical: boolean) => void;
 }) {
   const cardRef = useRef<HTMLDivElement>(null);
+  const thumbUrl = `https://img.youtube.com/vi/${videoId}/maxresdefault.jpg`;
 
   function handleMouseMove(e: React.MouseEvent<HTMLDivElement>) {
     const el = cardRef.current;
@@ -151,70 +89,72 @@ function TiltCard({
       viewport={{ once: true }}
       className="relative"
     >
-      {/* Ghost number */}
       <span
-        className="absolute -top-6 -left-2 font-display text-8xl leading-none text-ghost pointer-events-none select-none z-0"
+        className="absolute -top-6 -left-2 font-serif text-8xl leading-none text-ghost pointer-events-none select-none z-0 font-bold"
         aria-hidden="true"
       >
-        {video.id}
+        {String(index).padStart(2, "0")}
       </span>
 
       <div
         ref={cardRef}
-        onClick={() => onPlay(video.videoId)}
+        onClick={() => onPlay(videoId, !!isVertical)}
         onMouseMove={handleMouseMove}
         onMouseLeave={handleMouseLeave}
-        className="relative group rounded-xl overflow-hidden cursor-pointer aspect-video bg-surface border border-foreground/5 transition-all duration-300 hover:border-accent-500/30 hover:shadow-[0_0_40px_rgba(255,68,51,0.15)] z-10"
+        className={`relative group rounded-xl overflow-hidden cursor-pointer bg-surface border border-foreground/5 transition-all duration-300 hover:border-accent-500/20 hover:shadow-[0_0_30px_rgba(212,165,116,0.08)] z-10 ${
+          isVertical ? "aspect-[9/16]" : "aspect-video"
+        }`}
         style={{
           transformStyle: "preserve-3d",
           transition: "transform 0.2s ease, box-shadow 0.3s ease",
         }}
-        id={`video-card-${video.id}`}
+        id={`video-card-${index}`}
       >
-        <Image
-          src={video.thumbnail}
-          alt={video.title}
-          fill
-          className="object-cover transition-transform duration-700 group-hover:scale-105"
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src={thumbUrl}
+          alt={`Video ${index}`}
+          className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
           loading="lazy"
         />
 
-        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent group-hover:opacity-90 transition-opacity duration-300" />
+        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/15 to-transparent group-hover:opacity-90 transition-opacity duration-300" />
 
-        {/* Play button */}
         <div className="absolute inset-0 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300">
-          <div className="w-16 h-16 rounded-full border-2 border-accent-500 flex items-center justify-center backdrop-blur-sm bg-black/30 shadow-[0_0_30px_rgba(255,68,51,0.3)] transition-transform duration-300 group-hover:scale-110">
+          <div className="w-16 h-16 rounded-full border border-accent-500/50 flex items-center justify-center backdrop-blur-sm bg-black/30 shadow-[0_0_24px_rgba(212,165,116,0.15)] transition-transform duration-300 group-hover:scale-110">
             <Play className="w-6 h-6 text-accent-500 fill-accent-500 ml-1" />
           </div>
         </div>
 
-        {/* Bottom info */}
-        <div className="absolute bottom-0 left-0 right-0 p-5 translate-y-2 group-hover:translate-y-0 transition-transform duration-300">
-          <p className="text-xs text-muted tracking-widest uppercase mb-1">
-            {video.client}
-          </p>
-          <h3 className="font-serif italic text-foreground text-lg group-hover:text-accent-400 transition-colors">
-            {video.title}
-          </h3>
-        </div>
-
-        {/* Number overlay */}
         <div className="absolute top-4 right-4">
-          <span className="font-display text-2xl text-foreground/20 group-hover:text-accent-500/60 transition-colors duration-300">
-            {video.id}
+          <span className="font-mono text-2xl text-foreground/15 group-hover:text-accent-500/50 transition-colors duration-300">
+            {String(index).padStart(2, "0")}
           </span>
         </div>
+
+        {isVertical && (
+          <div className="absolute bottom-4 left-1/2 -translate-x-1/2">
+            <span className="text-[10px] tracking-widest uppercase text-foreground/30 font-mono bg-black/30 backdrop-blur-sm px-3 py-1 rounded-full border border-foreground/5">
+              Short
+            </span>
+          </div>
+        )}
       </div>
     </motion.div>
   );
 }
 
-/* ─── Lightbox ──────────────────────────────────────────────── */
+/* ═══════════════════════════════════════════════════════════════
+   LIGHTBOX
+   ═══════════════════════════════════════════════════════════════ */
+
 function VideoLightbox({
   videoId,
+  isVertical,
   onClose,
 }: {
   videoId: string;
+  isVertical: boolean;
   onClose: () => void;
 }) {
   return (
@@ -242,7 +182,11 @@ function VideoLightbox({
             animate={{ scale: 1, opacity: 1 }}
             exit={{ scale: 0.9, opacity: 0 }}
             transition={{ type: "spring", damping: 25, stiffness: 300 }}
-            className="relative w-full max-w-5xl aspect-video bg-black rounded-xl overflow-hidden shadow-[0_0_100px_rgba(0,0,0,0.8)]"
+            className={`relative bg-black rounded-xl overflow-hidden shadow-[0_0_100px_rgba(0,0,0,0.8)] ${
+              isVertical
+                ? "w-full max-w-sm aspect-[9/16] max-h-[85vh]"
+                : "w-full max-w-5xl aspect-video"
+            }`}
             onClick={(e) => e.stopPropagation()}
           >
             <iframe
@@ -259,27 +203,37 @@ function VideoLightbox({
   );
 }
 
+/* ═══════════════════════════════════════════════════════════════
+   PAGE
+   ═══════════════════════════════════════════════════════════════ */
+
 export default function VideosPage() {
   const [activeVideo, setActiveVideo] = useState<string | null>(null);
+  const [isVertical, setIsVertical] = useState(false);
+
+  function handlePlay(id: string, vertical: boolean) {
+    setActiveVideo(id);
+    setIsVertical(vertical);
+  }
 
   return (
     <>
       {/* Header */}
       <section className="pt-16 pb-12 px-4 sm:px-6 lg:px-8 text-center relative overflow-hidden">
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(255,68,51,0.04)_0%,transparent_60%)] pointer-events-none" />
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(212,165,116,0.03)_0%,transparent_60%)] pointer-events-none" />
         <div className="relative z-10 container mx-auto max-w-4xl">
           <motion.p
             initial={{ opacity: 0, y: -10 }}
             animate={{ opacity: 1, y: 0 }}
-            className="text-xs text-accent-500 tracking-[0.3em] uppercase mb-4"
+            className="text-xs text-accent-500 tracking-[0.3em] uppercase mb-4 font-mono"
           >
-            — Work —
+            — Selective Work —
           </motion.p>
           <motion.h1
             initial={{ opacity: 0, y: 20, filter: "blur(6px)" }}
             animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
             transition={{ duration: 0.8 }}
-            className="font-display text-6xl sm:text-7xl md:text-8xl tracking-widest uppercase text-foreground mb-4"
+            className="font-serif text-6xl sm:text-7xl md:text-8xl tracking-wide text-foreground mb-4 font-bold"
           >
             Videos
           </motion.h1>
@@ -289,24 +243,54 @@ export default function VideosPage() {
             transition={{ delay: 0.4 }}
             className="text-muted text-base max-w-md mx-auto"
           >
-            Click any frame to watch in full screen.
+            A curated selection — not everything, just the work that matters. Click any frame to watch.
           </motion.p>
         </div>
       </section>
 
-      {/* 3x3 Grid */}
-      <section className="py-8 px-4 sm:px-6 lg:px-8 pb-24">
-        <div
-          className="container mx-auto max-w-7xl"
-          style={{ perspective: "1200px" }}
-        >
+      {/* Horizontal Videos */}
+      <section className="py-8 px-4 sm:px-6 lg:px-8">
+        <div className="container mx-auto max-w-7xl" style={{ perspective: "1200px" }}>
+          <div className="flex items-center gap-3 mb-8">
+            <div className="w-2 h-2 rounded-full bg-accent-500 shadow-[0_0_8px_rgba(212,165,116,0.4)]" />
+            <span className="text-xs text-muted tracking-[0.2em] uppercase font-mono">
+              Films
+            </span>
+            <div className="flex-1 h-px bg-foreground/5" />
+          </div>
+
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
-            {videos.map((video, i) => (
+            {horizontalVideos.map((video) => (
               <TiltCard
                 key={video.id}
-                video={video}
-                index={i}
-                onPlay={setActiveVideo}
+                videoId={video.id}
+                index={video.index}
+                onPlay={handlePlay}
+              />
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Shorts Videos */}
+      <section className="py-16 px-4 sm:px-6 lg:px-8 pb-24">
+        <div className="container mx-auto max-w-7xl" style={{ perspective: "1200px" }}>
+          <div className="flex items-center gap-3 mb-8">
+            <div className="w-2 h-2 rounded-full bg-cyber-400 shadow-[0_0_8px_rgba(148,163,184,0.4)]" />
+            <span className="text-xs text-cyber-400 tracking-[0.2em] uppercase font-mono">
+              Shorts
+            </span>
+            <div className="flex-1 h-px bg-foreground/5" />
+          </div>
+
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-6 lg:gap-8 max-w-3xl mx-auto">
+            {shortVideos.map((video) => (
+              <TiltCard
+                key={video.id}
+                videoId={video.id}
+                index={video.index}
+                isVertical
+                onPlay={handlePlay}
               />
             ))}
           </div>
@@ -317,6 +301,7 @@ export default function VideosPage() {
       {activeVideo && (
         <VideoLightbox
           videoId={activeVideo}
+          isVertical={isVertical}
           onClose={() => setActiveVideo(null)}
         />
       )}

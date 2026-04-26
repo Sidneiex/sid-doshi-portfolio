@@ -1,35 +1,61 @@
 @import "tailwindcss";
 
-/* ─── Design Tokens ─────────────────────────────────────────── */
+/* ─── Design Tokens: Warm Cinema ─────────────────────────── */
 @theme {
-  /* Dark palette (default) */
-  --color-background: #050505;
-  --color-background-alt: #0a0a0a;
-  --color-surface: #111111;
-  --color-surface-2: #1a1a1a;
-  --color-foreground: #f0f0f0;
-  --color-muted: #777777;
+  /* Dark palette — warm undertone */
+  --color-background: #0a0a0b;
+  --color-background-alt: #0e0e10;
+  --color-surface: #161618;
+  --color-surface-2: #222225;
+  --color-foreground: #f5f0eb;
+  --color-muted: #9c9590;
 
-  /* Accent: orange-red system */
-  --color-accent-400: #ff6a3d;
-  --color-accent-500: #ff4433;
-  --color-accent-600: #e63b2e;
+  /* Accent — warm amber/gold (cinematic) */
+  --color-accent-400: #ddb892;
+  --color-accent-500: #d4a574;
+  --color-accent-600: #c49660;
+
+  /* Tech accent — cool silver-blue */
+  --color-cyber-400: #a8b8cc;
+  --color-cyber-500: #94a3b8;
+  --color-cyber-600: #8293a8;
+
+  /* Warm highlight */
+  --color-warm-500: #e8a87c;
 
   /* Fonts */
-  --font-sans: var(--font-outfit), ui-sans-serif, system-ui;
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui;
   --font-serif: var(--font-playfair), ui-serif, Georgia;
-  --font-display: var(--font-bebas), "Bebas Neue", Impact, ui-sans-serif;
+  --font-display: var(--font-space-grotesk), ui-sans-serif, system-ui;
+  --font-mono: var(--font-fira-code), var(--font-jetbrains), ui-monospace, monospace;
 
   /* Shadows */
-  --shadow-accent: 0 0 40px rgba(255, 68, 51, 0.25), 0 0 80px rgba(255, 68, 51, 0.1);
-  --shadow-accent-sm: 0 0 20px rgba(255, 68, 51, 0.2);
+  --shadow-accent: 0 0 40px rgba(212, 165, 116, 0.12), 0 0 80px rgba(212, 165, 116, 0.05);
+  --shadow-accent-sm: 0 0 20px rgba(212, 165, 116, 0.1);
+  --shadow-cyber: 0 0 40px rgba(148, 163, 184, 0.12), 0 0 80px rgba(148, 163, 184, 0.05);
 }
 
 /* ─── Base ──────────────────────────────────────────────────── */
 @layer base {
   html {
-    scroll-behavior: smooth;
     color-scheme: dark;
+  }
+
+  html.lenis,
+  html.lenis body {
+    height: auto;
+  }
+
+  .lenis.lenis-smooth {
+    scroll-behavior: auto !important;
+  }
+
+  .lenis.lenis-smooth [data-lenis-prevent] {
+    overscroll-behavior: contain;
+  }
+
+  .lenis.lenis-stopped {
+    overflow: hidden;
   }
 
   * {
@@ -38,40 +64,46 @@
 
   body {
     background-color: var(--color-background);
-    background-image: radial-gradient(circle at top, var(--color-background-alt) 0%, var(--color-background) 100%);
-    background-attachment: fixed;
     color: var(--color-foreground);
     @apply font-sans;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    transition: background-color 0.5s ease, color 0.5s ease;
-  }
-
-  /* ── Light/Dark mode root variables ──────────────────────── */
-  :root.light,
-  .light {
-    --color-background: #eeeeee;
-    --color-background-alt: #ffffff;
-    --color-surface: #ffffff;
-    --color-surface-2: #fafafa;
-    --color-foreground: #0a0a0a;
-    --color-muted: #555555;
-    color-scheme: light;
+    font-size: 16px;
+    line-height: 1.6;
   }
 
   ::selection {
-    background: rgba(255, 68, 51, 0.25);
+    background: rgba(212, 165, 116, 0.2);
     color: var(--color-foreground);
+  }
+
+  /* Minimum readable font sizes */
+  p, span, li, a, label, input, textarea, button {
+    font-size: max(inherit, 14px);
   }
 }
 
-/* ─── Accent gradient utilities ─────────────────────────────── */
+/* ─── Accent gradient utilities ────────────────────────────── */
 @utility accent-gradient {
   background: linear-gradient(135deg, var(--color-accent-400) 0%, var(--color-accent-600) 100%);
 }
 
 @utility text-accent-gradient {
   background: linear-gradient(135deg, var(--color-accent-400) 0%, var(--color-accent-500) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+@utility text-cyber-gradient {
+  background: linear-gradient(135deg, var(--color-cyber-400) 0%, var(--color-cyber-500) 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+@utility text-dual-gradient {
+  background: linear-gradient(135deg, var(--color-accent-400) 0%, var(--color-cyber-400) 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
@@ -88,7 +120,6 @@
 }
 
 /* ─── Cinematic Scroll Reveal ─────────────────────────────── */
-/* Cards start below, smaller, blurred, and tilted — then resolve */
 @keyframes cinematicReveal {
   from {
     opacity: 0;
@@ -148,7 +179,7 @@
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
   background-repeat: repeat;
   background-size: 200px 200px;
-  opacity: 0.03;
+  opacity: 0.025;
   pointer-events: none;
   z-index: 9999;
   animation: grain 8s steps(10) infinite;
@@ -167,12 +198,12 @@
   pointer-events: none;
   background: radial-gradient(
     ellipse at 30% 20%,
-    rgba(255, 68, 51, 0.08) 0%,
+    rgba(212, 165, 116, 0.03) 0%,
     transparent 60%
   ),
   radial-gradient(
     ellipse at 70% 80%,
-    rgba(255, 106, 61, 0.05) 0%,
+    rgba(148, 163, 184, 0.02) 0%,
     transparent 60%
   );
   background-size: 200% 200%;
@@ -181,8 +212,8 @@
 
 /* ─── Accent Glow Pulse (submit, CTA) ─────────────────────── */
 @keyframes accentPulse {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(255, 68, 51, 0.3); }
-  50%      { box-shadow: 0 0 30px 8px rgba(255, 68, 51, 0.18); }
+  0%, 100% { box-shadow: 0 0 0 0 rgba(212, 165, 116, 0.2); }
+  50%      { box-shadow: 0 0 20px 6px rgba(212, 165, 116, 0.1); }
 }
 
 .btn-accent-pulse:hover {
@@ -191,7 +222,7 @@
 
 /* ─── Ghost / Outline text ────────────────────────────────── */
 @utility text-ghost {
-  -webkit-text-stroke: 1px rgba(255, 255, 255, 0.12);
+  -webkit-text-stroke: 1px rgba(245, 240, 235, 0.06);
   color: transparent;
 }
 
@@ -199,7 +230,7 @@
 @utility input-accent {
   background: transparent;
   border: none;
-  border-bottom: 1px solid rgba(255,255,255,0.12);
+  border-bottom: 1px solid rgba(245,240,235,0.1);
   outline: none;
   color: var(--color-foreground);
   transition: border-color 0.3s ease;
@@ -233,4 +264,128 @@
 .page-transition-exit-active {
   opacity: 0;
   transition: opacity 0.25s ease;
+}
+
+/* ─── Scrollbar styling ───────────────────────────────────── */
+::-webkit-scrollbar {
+  width: 6px;
+}
+::-webkit-scrollbar-track {
+  background: var(--color-background);
+}
+::-webkit-scrollbar-thumb {
+  background: var(--color-surface-2);
+  border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-accent-500);
+}
+
+/* ─── Showreel: Text scramble glow ────────────────────────── */
+@keyframes scrambleGlow {
+  0%, 100% { text-shadow: 0 0 8px rgba(212, 165, 116, 0.2); }
+  50%      { text-shadow: 0 0 16px rgba(212, 165, 116, 0.35), 0 0 32px rgba(212, 165, 116, 0.1); }
+}
+
+.scramble-glow {
+  animation: scrambleGlow 2.5s ease-in-out infinite;
+}
+
+/* ─── Showreel: Floating bob for shorts cards ─────────────── */
+@keyframes floatBob {
+  0%, 100% { transform: translateY(0px); }
+  50%      { transform: translateY(-10px); }
+}
+
+.float-bob {
+  animation: floatBob 4s ease-in-out infinite;
+}
+.float-bob-delayed-1 {
+  animation: floatBob 4.5s ease-in-out 0.5s infinite;
+}
+.float-bob-delayed-2 {
+  animation: floatBob 3.8s ease-in-out 1s infinite;
+}
+
+/* ─── Showreel: Spotlight ambient glow ────────────────────── */
+@keyframes spotlightPulse {
+  0%, 100% {
+    box-shadow:
+      0 0 30px rgba(212, 165, 116, 0.1),
+      0 0 60px rgba(212, 165, 116, 0.05),
+      0 0 100px rgba(212, 165, 116, 0.02);
+  }
+  50% {
+    box-shadow:
+      0 0 40px rgba(212, 165, 116, 0.15),
+      0 0 80px rgba(212, 165, 116, 0.08),
+      0 0 120px rgba(212, 165, 116, 0.03);
+  }
+}
+
+.spotlight-card {
+  animation: spotlightPulse 3s ease-in-out infinite;
+}
+
+/* ─── Showreel: Horizontal scroll area ────────────────────── */
+.film-strip-scroll {
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.film-strip-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+/* ─── Showreel: Progress bar gradient ─────────────────────── */
+.scroll-progress-track {
+  background: var(--color-surface);
+  border-radius: 9999px;
+  overflow: hidden;
+}
+.scroll-progress-fill {
+  background: linear-gradient(90deg, var(--color-accent-500), var(--color-cyber-400));
+  border-radius: 9999px;
+  height: 100%;
+  transition: width 0.1s ease-out;
+}
+
+/* ─── Showreel: Magnetic card hover ───────────────────────── */
+.magnetic-card {
+  transition: transform 0.3s cubic-bezier(0.23, 1, 0.32, 1), box-shadow 0.4s ease;
+  will-change: transform;
+}
+.magnetic-card:hover {
+  box-shadow:
+    0 20px 60px rgba(0, 0, 0, 0.5),
+    0 0 30px rgba(212, 165, 116, 0.06);
+}
+
+/* ─── Showreel: Cinematic vignette overlay ────────────────── */
+.vignette-overlay {
+  background: radial-gradient(ellipse at center, transparent 40%, rgba(0,0,0,0.7) 100%);
+  pointer-events: none;
+}
+
+/* ─── Showreel: Draw line animation ───────────────────────── */
+@keyframes drawLine {
+  from { width: 0; }
+  to   { width: 100%; }
+}
+
+.draw-line {
+  animation: drawLine 1.5s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+}
+
+/* ─── Spiral intro overlay ────────────────────────────────── */
+.intro-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9998;
+  background: #000;
+  pointer-events: all;
+}
+.intro-overlay.exiting {
+  pointer-events: none;
 }

@@ -1,6 +1,6 @@
 import { HeroSection } from "@/components/ui/HeroSection";
 import { SixStepApproach } from "@/components/ui/SixStepApproach";
-import { VideoPortfolio } from "@/components/ui/VideoPortfolio";
+import { ShowreelSection } from "@/components/ui/ShowreelSection";
 import { ExperimentalSection } from "@/components/ui/ExperimentalSection";
 import type { Metadata } from "next";
 
@@ -15,7 +15,7 @@ export default function Home() {
     <>
       <HeroSection />
       <SixStepApproach />
-      <VideoPortfolio />
+      <ShowreelSection />
       <ExperimentalSection />
     </>
   );

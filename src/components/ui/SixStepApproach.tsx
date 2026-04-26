@@ -105,7 +105,7 @@ export function SixStepApproach() {
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-black text-surface opacity-30 uppercase tracking-widest absolute left-1/2 -translate-x-1/2 mt-[-40px] pointer-events-none z-0">
             Crafting Excellence
           </h2>
-          <h3 className="text-4xl md:text-5xl font-serif text-accent-gradient italic relative z-10">
+          <h3 className="text-4xl md:text-5xl font-serif text-accent-gradient font-bold relative z-10">
             My Process
           </h3>
         </motion.div>
@@ -124,14 +124,14 @@ export function SixStepApproach() {
               className={`group relative p-8 sm:p-10 rounded-2xl flex flex-col h-full overflow-hidden transition-all duration-500 ease-out hover:-translate-y-2 border
                 ${
                   step.isHighlight
-                    ? "border-accent-500/40 bg-surface shadow-[0_0_30px_rgba(255,68,51,0.1)]"
-                    : "border-foreground/5 bg-surface hover:border-accent-500/20"
+                    ? "border-accent-500/30 bg-surface shadow-[0_0_24px_rgba(212,165,116,0.06)]"
+                    : "border-foreground/5 bg-surface hover:border-accent-500/15"
                 }`}
               style={{ transformStyle: "preserve-3d" }}
             >
               <div className="mb-6 flex items-center justify-between">
                 <span
-                  className={`text-sm tracking-widest uppercase font-semibold ${
+                  className={`text-sm tracking-widest uppercase font-semibold font-mono ${
                     step.isHighlight ? "text-accent-500" : "text-muted"
                   }`}
                 >
@@ -140,7 +140,7 @@ export function SixStepApproach() {
               </div>
 
               <h4
-                className={`text-2xl sm:text-3xl font-bold mb-8 whitespace-pre-line leading-snug transition-colors duration-300 ${
+                className={`text-2xl sm:text-3xl font-bold mb-8 whitespace-pre-line leading-snug transition-colors duration-300 font-serif ${
                   step.isHighlight
                     ? "text-foreground"
                     : "text-foreground group-hover:text-accent-500"
@@ -155,7 +155,7 @@ export function SixStepApproach() {
                     <li key={index} className="flex items-start gap-4">
                       <CheckCircle2
                         className={`w-5 h-5 flex-shrink-0 mt-0.5 ${
-                          step.isHighlight ? "text-accent-500" : "text-accent-500/60"
+                          step.isHighlight ? "text-accent-500" : "text-accent-500/50"
                         }`}
                       />
                       <span className="text-sm sm:text-base leading-relaxed text-muted">
@@ -166,14 +166,13 @@ export function SixStepApproach() {
                 </ul>
               </div>
 
-              {/* Subtle hover glow */}
-              <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none rounded-2xl bg-gradient-to-b from-accent-500/[0.03] to-transparent" />
+              <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none rounded-2xl bg-gradient-to-b from-accent-500/[0.02] to-transparent" />
             </motion.div>
           ))}
         </motion.div>
 
         <div className="mt-16 text-center">
-          <button className="border border-accent-500/40 px-8 py-3 rounded text-accent-500 font-bold tracking-widest uppercase text-sm hover:bg-accent-500 hover:text-background transition-all duration-300 hover:shadow-[0_0_30px_rgba(255,68,51,0.3)]">
+          <button className="border border-accent-500/30 px-8 py-3 rounded text-accent-500 font-bold tracking-widest uppercase text-sm hover:bg-accent-500 hover:text-background transition-all duration-300 hover:shadow-[0_0_24px_rgba(212,165,116,0.15)]">
             Book a Free Call
           </button>
         </div>

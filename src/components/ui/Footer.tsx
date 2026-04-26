@@ -3,7 +3,6 @@ import Link from "next/link";
 const navLinks = [
   { href: "/", label: "Home" },
   { href: "/about", label: "About" },
-  { href: "/photos", label: "Photos" },
   { href: "/videos", label: "Videos" },
   { href: "/contact", label: "Contact" },
 ];
@@ -62,8 +61,10 @@ export function Footer() {
               <a
                 key={label}
                 href={href}
+                target="_blank"
+                rel="noopener noreferrer"
                 aria-label={label}
-                className="w-10 h-10 rounded-full border border-foreground/10 flex items-center justify-center text-muted hover:border-accent-500 hover:text-accent-500 transition-all duration-300 hover:shadow-[0_0_20px_rgba(255,68,51,0.2)]"
+                className="w-10 h-10 rounded-full border border-foreground/10 flex items-center justify-center text-muted hover:border-accent-500 hover:text-accent-500 transition-all duration-300 hover:shadow-[0_0_16px_rgba(212,165,116,0.12)]"
               >
                 <Icon />
               </a>
